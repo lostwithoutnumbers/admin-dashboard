@@ -5,19 +5,17 @@ import {MdOutlineCancel} from 'react-icons/md'
 import { TooltipComponent } from '@syncfusion/ej2-react-popups'
 
 import {links} from '../data/dummy'
-import { useStateContext, setActiveMenu } from '../contexts/ContextProvider'
+import { useStateContext, /*setActiveMenu*/ } from '../contexts/ContextProvider'
 
 const Sidebar = () => {
   const{ currentColor, setActiveMenu, screenSize } = useStateContext();
-
   const handleCloseSideBar = () => {
-    if( activeMenu != undefined && screenSize < 900){
+    if( activeMenu !== undefined && screenSize < 900){
       setActiveMenu(false)
     }
   }
 
   const activeMenu = true;
-
   const activeLink ='flex items-center gap-5 pl-4 pt-3 pd-2.5 rounded-lg text-black text-md m-2';
   const normalLink ='flex items-center gap-5 pl-4 pt-3 pd-2.5 rounded-lg text-gray-700 dark:text-gray-200 dark:hiver:text-black hover:bg0light0gray m-2';
 
@@ -32,7 +30,8 @@ const Sidebar = () => {
         </Link>
         <TooltipComponent content="Menu" position="BottomCenter">   
          <button 
-         type="button" onClick={()=>{}}
+         type="button" onClick= {()=> setActiveMenu(prevActiveMenu => !prevActiveMenu)}
+         style={{color: currentColor}}
         className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block"
         >
         <MdOutlineCancel color='black' size={30}/>
@@ -40,25 +39,27 @@ const Sidebar = () => {
         </TooltipComponent>
         </div>
         <div className='mt-10'>
-        {links.map((item)=>(
-          <div key={item.title}>
-            <p className="text-gray-400 m-3 mt-4 uppercase">
-              {item.title}
-            </p>
-            {item.links.map((link)=>(
-              <NavLink
-                to={`/$link.name}`}
-                key={link.name}
-                onClick={()=>{}}
-                className={({isActive}) =>
-                isActive ? activeLink : normalLink}
+        {links.map((item)=>{
+          console.log(JSON.stringify(item, null, 2))
+          return (
+            <div key={item.title}>
+              <p className="text-gray-400 m-3 mt-4 uppercase">
+                {item.title}
+              </p>
+              {item.links.map((link) => (
+                <NavLink
+                  to={`/${link.name}`}
+                  key={link.name}
+                  onClick={handleCloseSideBar}
+                  className={({ isActive }) => isActive ? activeLink : normalLink}
                 >
                   {link.icon}
                   <span className="capitalize">{link.name}</span>
-              </NavLink>
-            ))}
+                </NavLink>
+              ))}
             </div>
-        ))}
+          )
+        })}
         </div>
         </>)}
     </div>
