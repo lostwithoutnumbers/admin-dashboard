@@ -2,7 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This project is made by following this youtube video - https://www.youtube.com/watch?v=jx5hdo50a2M&t=1118s 
+This project is made by following this youtube video - https://www.youtube.com/watch?v=jx5hdo50a2M&t=1118s from JavaScript Mastery
+
 
 ## Available Scripts
 
